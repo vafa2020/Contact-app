@@ -6,12 +6,18 @@ import ContactList from "./component/ContactList";
 function App() {
   const [contactList, setContactList] = useState([]);
   const addContact = (objectValue) => {
-    const item = {
-      id: Math.floor(Math.random() * 1000),
-      name: objectValue.name,
-      email: objectValue.email,
-    };
-    setContactList([...contactList, item]);
+    //second:way short----------------------------------------------
+    setContactList([
+      ...contactList,
+      { id: Math.floor(Math.random() * 1000), ...objectValue },
+    ]);
+    //first: long way-----------------------------------------------
+    // const item = {
+    //   id: Math.floor(Math.random() * 1000),
+    //   name: objectValue.name,
+    //   email: objectValue.email,
+    // };
+    // setContactList([...contactList, item]);
   };
 
   const deleteContact = (id) => {

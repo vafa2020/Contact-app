@@ -14,6 +14,10 @@ const ContactForm = ({ addContact }) => {
     });
   };
   const submitHandler = (e) => {
+    if (!feild.name || !feild.email) {
+      alert(" Fields are required");
+      return;
+    }
     e.preventDefault();
     addContact(feild);
     setFeild({

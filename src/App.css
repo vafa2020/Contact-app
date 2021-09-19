@@ -41,6 +41,9 @@ h2 {
   outline: none;
   border-radius: 5px;
 }
+.input:focus {
+  border: 2px solid blue;
+}
 .button {
   padding: 10px 20px;
   background-color: blue;
