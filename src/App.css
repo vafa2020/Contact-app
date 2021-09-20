@@ -79,3 +79,24 @@ h2 {
   color: red;
   cursor: pointer;
 }
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.buttonAdd{
+  padding: 10px 20px;
+  background-color: green;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+}
+.contactDetails{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
