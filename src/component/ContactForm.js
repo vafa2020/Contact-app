@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { addContactServer } from "../server/AddCantactServer";
 
-const ContactForm = ({ history, addContact }) => {
+const ContactForm = ({ history }) => {
   const [feild, setFeild] = useState({
     name: "",
     email: "",
@@ -14,18 +15,18 @@ const ContactForm = ({ history, addContact }) => {
     });
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (!feild.name || !feild.email) {
       alert(" Fields are required");
       return;
     }
-    addContact(feild);
-    setFeild({
-      name: "",
-      email: "",
-    });
-    history.push("/");
+    try {
+      await addContactServer(feild);
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

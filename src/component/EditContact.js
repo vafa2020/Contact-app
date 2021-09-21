@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getSingleContact } from "../server/GetSingleContact";
+import {EditCantactServer} from "../server/EditCantactServer"
 
-const EditContact = ({ history, editContact, match }) => {
+const EditContact = ({ history, match }) => {
   const id = match.params.id;
 
   const [feild, setFeild] = useState({
@@ -27,18 +28,18 @@ const EditContact = ({ history, editContact, match }) => {
     });
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (!feild.name || !feild.email) {
       alert(" Fields are required");
       return;
     }
-    editContact(feild, id);
-    setFeild({
-      name: "",
-      email: "",
-    });
-    history.push("/");
+    try {
+      await EditCantactServer(feild, id);
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,7 +1,32 @@
 import Contact from "./Contact";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getAllContact } from "../../server/GetAllCantact";
+import { deleteContactServer } from "../../server/DeleteContactServer";
 
-const ContactList = ({ data, OnDelete }) => {
+const ContactList = () => {
+  const [contactList, setContactList] = useState(null);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await getAllContact();
+        setContactList(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, []);
+  const deleteContact = async (id) => {
+    try {
+      await deleteContactServer(id);
+      const { data } = await getAllContact();
+      setContactList(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="header">
@@ -10,9 +35,17 @@ const ContactList = ({ data, OnDelete }) => {
           <button className="buttonAdd">ADD-CONTACT</button>
         </Link>
       </div>
-      {data.map((item) => (
-        <Contact key={item.id} data={item} onDelete={() => OnDelete(item.id)} />
-      ))}
+      {contactList ? (
+        contactList.map((item) => (
+          <Contact
+            key={item.id}
+            data={item}
+            onDelete={() => deleteContact(item.id)}
+          />
+        ))
+      ) : (
+        <p>loading...</p>
+      )}
     </>
   );
 };
