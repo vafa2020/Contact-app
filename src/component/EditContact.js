@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-const ContactForm = ({ history, addContact }) => {
+const EditContact = ({ history, editContact, match }) => {
+  const id = match.params.id;
+
   const [feild, setFeild] = useState({
     name: "",
     email: "",
@@ -20,17 +22,17 @@ const ContactForm = ({ history, addContact }) => {
       alert(" Fields are required");
       return;
     }
-    addContact(feild);
+    editContact(feild, id);
     setFeild({
       name: "",
       email: "",
     });
-    history.push("/");
+    // history.push("/");
   };
 
   return (
     <div className="contactForm">
-      <h2>Add Contact</h2>
+      <h2>Edit Contact</h2>
       <form onSubmit={submitHandler} className="form">
         <label htmlFor="name" className="label">
           Name :
@@ -42,7 +44,7 @@ const ContactForm = ({ history, addContact }) => {
           value={feild.name}
           name="name"
           onChange={inputHandler}
-          placeholder="Insert Name ..."
+          placeholder="Edit Name ..."
         />
         <label htmlFor="email" className="label">
           Email :
@@ -54,14 +56,14 @@ const ContactForm = ({ history, addContact }) => {
           value={feild.email}
           name="email"
           onChange={inputHandler}
-          placeholder="Insert Email ..."
+          placeholder="Edit Email ..."
         />
         <button className="button" type="submit">
-          Add
+          EditContact
         </button>
       </form>
     </div>
   );
 };
 
-export default ContactForm;
+export default EditContact;

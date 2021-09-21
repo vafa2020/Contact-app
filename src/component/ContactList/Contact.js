@@ -1,8 +1,9 @@
 import { IoIosContact } from "react-icons/io";
 import { BsTrashFill } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-const Contact = ({data,onDelete}) => {
+const Contact = ({ data, onDelete }) => {
   return (
     <div className="contactList">
       <span>
@@ -14,9 +15,14 @@ const Contact = ({data,onDelete}) => {
           <span>{data.email}</span>
         </div>
       </Link>
-      <span onClick={onDelete}>
-        <BsTrashFill className="trashIcon" />
-      </span>
+      <div className="controller">
+        <Link to={`/edit/${data.id}`}>
+          <FiEdit className="editIcon" />
+        </Link>
+        <span onClick={onDelete}>
+          <BsTrashFill className="trashIcon" />
+        </span>
+      </div>
     </div>
   );
 };
