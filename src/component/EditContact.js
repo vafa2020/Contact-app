@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getSingleContact } from "../server/GetSingleContact";
 
 const EditContact = ({ history, editContact, match }) => {
   const id = match.params.id;
@@ -7,7 +8,17 @@ const EditContact = ({ history, editContact, match }) => {
     name: "",
     email: "",
   });
-
+  useEffect(() => {
+    const getContact = async () => {
+      try {
+        const { data } = await getSingleContact(id);
+        setFeild(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getContact();
+  }, [id]);
   const inputHandler = (e) => {
     const { name, value } = e.target;
     setFeild({
@@ -27,7 +38,7 @@ const EditContact = ({ history, editContact, match }) => {
       name: "",
       email: "",
     });
-    // history.push("/");
+    history.push("/");
   };
 
   return (

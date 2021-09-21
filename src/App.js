@@ -8,6 +8,7 @@ import { getAllContact } from "./server/GetAllCantact";
 import { deleteContactServer } from "./server/DeleteContactServer";
 import { addContactServer } from "./server/AddCantactServer";
 import EditContact from "./component/EditContact";
+import { EditCantactServer } from "./server/EditCantactServer";
 
 function App() {
   const [contactList, setContactList] = useState([]);
@@ -37,8 +38,14 @@ function App() {
     }
   };
 
-  const editContact = (objectValue) => {
-    console.log(objectValue);
+  const editContact = async (objectValue, id) => {
+    try {
+      await EditCantactServer(objectValue, id);
+      const { data } = await getAllContact();
+      setContactList(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const deleteContact = async (id) => {
     try {

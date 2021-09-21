@@ -1,5 +1,5 @@
 import { Http } from "./Http";
 
 export const EditCantactServer = (obj,id) => {
-  return Http.post(`/contact/${id}`, obj);
+  return Http.put(`/contact/${id}`, obj);
 };
