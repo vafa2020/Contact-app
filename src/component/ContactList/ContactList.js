@@ -6,6 +6,11 @@ import { deleteContactServer } from "../../server/DeleteContactServer";
 
 const ContactList = () => {
   const [contactList, setContactList] = useState(null);
+  const [contactListFilter, setContactListFilter] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  useEffect(() => {
+    setContactListFilter(contactList);
+  }, [contactList]);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -27,6 +32,16 @@ const ContactList = () => {
       console.log(error);
     }
   };
+  const searchHandler = (e) => {
+    const searchFilter = contactList.filter((contact) => {
+      return Object.values(contact)
+        .join("")
+        .toLowerCase()
+        .includes(e.target.value.toLowerCase());
+    });
+    setContactListFilter(searchFilter);
+    setSearchValue(e.target.value);
+  };
   return (
     <>
       <div className="header">
@@ -34,9 +49,16 @@ const ContactList = () => {
         <Link to="/add">
           <button className="buttonAdd">ADD-CONTACT</button>
         </Link>
+        <input
+          className="search"
+          placeholder="search ..."
+          type="text"
+          value={searchValue}
+          onChange={searchHandler}
+        />
       </div>
-      {contactList ? (
-        contactList.map((item) => (
+      {contactListFilter ? (
+        contactListFilter.map((item) => (
           <Contact
             key={item.id}
             data={item}

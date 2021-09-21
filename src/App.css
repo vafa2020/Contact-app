@@ -110,3 +110,16 @@ h2 {
   justify-content: space-between;
   width: 60px;
 }
+.search {
+  width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 5px 15px 0;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 20px;
+}
+.search:focus {
+  border: 1px solid blue;
+  border-radius: 5px;
+}
